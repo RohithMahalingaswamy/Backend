@@ -1,9 +1,8 @@
 const { default: axios } = require('axios');
 const express = require('express');
 const app = express();
-
+const API_KEY="592f6b83b4ab4ec586baf7f9436206c3"
 const bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({ extended: false }));          
  app.use(bodyParser.json())
 
 app.use((req, res, next) => {
@@ -14,7 +13,7 @@ app.use((req, res, next) => {
 
 app.get("/UkNews", function (req, res) {
     console.log("connected to UkNews")
-    return axios.get("https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=592f6b83b4ab4ec586baf7f9436206c3")
+    return axios.get(`https://newsapi.org/v2/top-headlines?country=us&category=business&apiKey=${API_KEY}`)
         .then(response => {
             res.status(202).send(response.data);
 
@@ -30,7 +29,7 @@ app.listen(8080, function () {
 })
 app.post("/filterKeyword", (req, res) => {
     var keyword=req.body.filter;
-    axios.get(`https://newsapi.org/v2/everything?q=${keyword}&apiKey=592f6b83b4ab4ec586baf7f9436206c3`)
+    axios.get(`https://newsapi.org/v2/everything?q=${keyword}&apiKey=${API_KEY}`)
     .then(response=>{
         res.status(202).send(response.data);
     })
